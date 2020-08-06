@@ -1,9 +1,9 @@
 int reset, seg;
-PFont mifuente;
+PFont inicio;
 
 
 int estado;
-int radio;
+
 
 float dboton1;
 float dboton2;
@@ -16,21 +16,31 @@ float dboton8;
 float dboton9;
 float dboton10;
 
+//------------------Pantalla 0
+
+PImage pantinicio, pj0;
+String titulo;
+float px,py,pypj;
+
+
 //------------------Pantalla 1
+
 PImage pant1;
 PImage globpan1;
 String tex1;
 String tex2;
 String tex3;
-//------------------
+
 
 //------------------Pantalla 2
+
 String texp2;
 PImage pant2;
 PImage mano1;
 PImage mano2;
 
 //------------------Pantalla 3
+
 PImage pant3;
 PImage globpan3;
 String texp3;
@@ -38,15 +48,16 @@ String texcuer;
 String texard;
 
 //------------------Pantalla 4
+
 PImage pant4;
 PImage lobo1;
-PImage cartel;
 PImage lobo2;
 String cartel4, cart4;
 float posx;
 float posy;
 
 //------------------Pantalla 5
+
 PImage pant5;
 PImage pj5;
 String hojas, baston, lata, nido, txt, txt1;
@@ -54,22 +65,26 @@ String hojas, baston, lata, nido, txt, txt1;
 
 
 //------------------Pantalla 6
+
 PImage pant6;
 String tex6, textc, textp, textm;
 
 
 
 //------------------Pantalla 7
+
 PImage pant7;
 String text7;
 
 
 //------------------Pantalla 8
+
 PImage pant8;
 PImage ch1, ch2;
 String intui;
 
 //------------------Pantalla 9
+
 PImage pant9;
 String txt9;
 
@@ -79,25 +94,34 @@ PImage pant10;
 String txtcred;
 int posycred;
 
-
+//----------------------------------------------------------------------------------------------------------------------
 
 void setup() {
 
   size(800, 600);
   rectMode(CENTER);
   textAlign(CENTER);
-  estado=10;
-  radio=50;
+  estado= 0;
   reset=0;
-  mifuente =loadFont ("#44Font-48.vlw");
-
-
+  inicio= loadFont ("JungleFeverNF-48.vlw");
+  
+  
+  //------------------Pantalla 0  
+ 
+  pantinicio= loadImage("pant0.jpg" );
+  pj0= loadImage("P5.png" );
+  titulo= "JONAS EN EL BOSQUE";
+  px= width/2;
+  py= height/2+30;
+  pypj= height/1.6;
+  
   //------------------ Pantalla 1
+  
   pant1= loadImage("Pantalla1.jpg" );
   globpan1= loadImage ("dialogo1.png");
   tex1= "Estaba de campamento con mi amigos y me he perdido en el bosque";
   tex2= "Para llegar al campamento debo atravesar el bosque y tengo que hacerlo antes que anochezca";
-  tex3= "Presione SPACE para entar al bosque";
+  tex3= "Presione SPACE para entrar al bosque";
 
 
 
@@ -122,7 +146,6 @@ void setup() {
 
   pant4= loadImage ("pantalla4.jpg");
   lobo1= loadImage ("lobo1.png");
-  cartel= loadImage ("cartel4.png");
   cartel4= "Oprime SPACE para volver";
   cart4= "Oprime la tecla 'H' para correr";
   lobo2= loadImage ("lobo2.png"); 
@@ -130,6 +153,7 @@ void setup() {
   posy= 410;
 
   //------------------Pantalla 5 
+  
   pant5= loadImage ("pantalla5.jpg");
   pj5= loadImage ("PJ5.png");
   hojas= "No hay nada por aqui";
@@ -140,25 +164,29 @@ void setup() {
   txt1="Por aqui no es";
 
   //------------------Pantalla 6
+  
   pant6= loadImage ("pantalla6.jpg"); 
   tex6= "Quizas deba volver a pedir consejos"; 
   textm="Este camino, te llevara a tus amigos";
-  textc="He visto pesonas por ahi";
+  textc="He visto personas por ahi";
   textp="No estoy muy seguro, creo que es por aqui";
 
 
   //------------------Pantalla 7
+  
   pant7= loadImage ("pantalla7.jpg");
   text7= "Oprima SPACE para volver a intentarlo";
 
 
-  //------------------Pantalla 8   
+  //------------------Pantalla 8 
+  
   pant8= loadImage ("pantalla8.jpg");
   ch1= loadImage ("chico1.png");
   ch2= loadImage ("chico2.png");
   intui = " mmmm...... que camino tomare?";
 
   //------------------Pantalla 9
+  
   pant9= loadImage ("pantalla9.jpg");
   txt9="Siiiiiiiiiii, encontre a mis amigoosss";
 
@@ -169,10 +197,35 @@ void setup() {
   posycred= height+200;
 }
 
-
+//------------------------------------------------------------------------------------------------------------------
 void draw() {
   seg = seg + 1;
-
+ 
+  
+  //------------------ Pantalla 0
+  
+  if(estado == 0){ 
+  image (pantinicio,0, 0, 800, 600 );
+    fill(255);
+    rect(width/2, height/1.1,415,30,10);
+    rectMode(CORNER);
+    fill(255,0,0);
+    rect(190, 530,seg,30,10);
+    rectMode(CENTER);
+    textSize(30);
+    fill(255, seg*2);
+    pushStyle ();  
+    textFont(inicio);
+    text(titulo, px, py, 200,200);
+    image(pj0, width/2-50, pypj,100,200);
+    popStyle ();
+  
+    
+    if(seg/60>=7){
+    estado=1;
+    seg=reset;
+    } 
+}
 
 
   //------------------ Pantalla 1
@@ -190,14 +243,18 @@ void draw() {
     } else if (seg/60>=9 && seg/60<=14) {
       image(globpan1, 190, 160, 310, 250);
       text(tex2, 350, 325, 260, 200);
-    } else if (seg/60>15) {
-      textSize(20);
+    } else if (seg/60>15) { 
+      textSize(23);
       fill(255);
-      text(tex3, 365, 120);
+      text(tex3, 365, 120, 400,100);
+      
     }
     if (seg/60<=14) {
-      textSize(25);
+      pushStyle ();  
+      textFont(inicio);
+      textSize(35);
       text("ENTRADA", 365, 120);
+      popStyle ();
     }
   }
 
@@ -223,6 +280,7 @@ void draw() {
 
 
   //------------------ Pantalla 3 dos animales
+  
   else if (estado==3) {
     image(pant3, 0, 0, 800, 600);
     fill(0);
@@ -251,10 +309,9 @@ void draw() {
 
     image(pant4, 0, 0, 800, 600); 
     fill(0);
-    image(cartel, 130, 230, 150, 150);
     textSize(20);
-    text("LOBO", 200, 270 );
-    text("CONSEJOS", 200, 310 );
+    pushStyle ();  
+    textFont(inicio);
 
     if (seg/60<1) {
       fill(255, 0, 0);
@@ -269,7 +326,7 @@ void draw() {
       text("RAPIDO!!!", width/2, height/5);
     }
     if (seg/60>=3) {
-      fill(255, 0, 0);
+      fill(255);
       textSize(40);
       text(cart4, width/4.5, height/5, 300, 200);
       text(cartel4, width/1.3, height/5, 300, 200);
@@ -286,6 +343,7 @@ void draw() {
       posy=posy -0.5;
       posx=posx -0.8;
     }
+    popStyle ();
     if (seg/60>=8) {
       estado=7;
       seg=reset;
@@ -297,6 +355,7 @@ void draw() {
 
 
   //------------------ Pantalla 5 pistas
+  
   else if (estado==5) {
     image(pant5, 0, 0, 800, 600);  
     image(pj5, 330, 250);
@@ -332,6 +391,7 @@ void draw() {
 
 
   //------------------ Pantalla 6 tres animales
+  
   else if (estado==6) {
     image(pant6, 0, 0, 800, 600); 
     fill(0);
@@ -363,6 +423,7 @@ void draw() {
 
 
   //------------------ Pantalla 7 se lo come el lobo
+  
   else if (estado==7) { 
     image(pant7, 0, 0, 800, 600);
     textSize(40);
@@ -372,6 +433,7 @@ void draw() {
 
 
   //------------------ Pantalla 8 intuicion 
+  
   else if (estado==8) {
     image(pant8, 0, 0, 800, 600);
     if (seg/60<=3) {
@@ -396,6 +458,7 @@ void draw() {
 
 
   //------------------ Pantalla 9
+  
   else if (estado==9) {
     image(pant9, 0, 0, 800, 600);
     if (seg/60>=2 && seg/60<=6 ) {
@@ -415,22 +478,25 @@ void draw() {
 
   else if (estado==10) {
     image(pant10, 0, 0, 800, 600);
-    fill(0);
-     textFont(mifuente, 48);
-    //textSize(40);
+    fill(255);
+    pushStyle ();
+    textFont(inicio, 46);
     text(txtcred, width/2, posycred, 400, 600);
+    popStyle ();
     posycred=posycred-2;
-    if (seg/60>=8){
-      estado=1;
+    
+    if (seg/60>=7){
+      estado=0;
       seg=reset;
     
     }
   }
 }
 
-
+  //----------------------------------------------------------------------------------------------------------
 void keyPressed() {
   //------------------------- Pantalla 1 
+  
   if (estado==1) {
     if (key==' ' && seg/60>15) {
       seg=reset;
@@ -438,6 +504,7 @@ void keyPressed() {
     }
   }
   //------------------------- Pantalla 4
+  
   else if (estado==4) {
     if (seg/60>=3 && key==' ') {
       estado=3; 
@@ -449,6 +516,7 @@ void keyPressed() {
     }
   }
   //------------------------- Pantalla 7 
+  
   else if (estado==7) {
     if (key==' ') {
       estado=1;
@@ -458,7 +526,9 @@ void keyPressed() {
 }
 
 void mousePressed() {
+  
   //------------------------- Pantalla 2
+  
   if (estado==2) { 
     if (mouseX >= 200 && mouseX <= 295 && mouseY >= 220 && mouseY <= 260 ) {
       estado=3;
@@ -508,6 +578,7 @@ void mousePressed() {
   }
 
   //------------------------- Pantalla 6
+  
   else if (estado==6) {
     if (mouseX >= 117 && mouseX <= 160 && mouseY >= 35 && mouseY <= 435 && seg/60>=6 ) {
       estado=8;
@@ -522,6 +593,7 @@ void mousePressed() {
   }
 
   //------------------------- Pantalla 8
+  
   else if (estado==8) {
     if (mouseX >= 670 && mouseX <= 770 && mouseY >= 250 && mouseY <= 300 && seg/60>3) {
       estado=2;
